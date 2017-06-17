@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sumulaesportiva.entities.Employee;
+import br.com.sumulaesportiva.exceptions.EmployeeNotFoundException;
 import br.com.sumulaesportiva.repositories.EmployeeRepository;
 
 @ResponseBody
@@ -17,7 +18,7 @@ public class HelloWorldController {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
+
 	@RequestMapping("/helloworld")
 	public List<Employee> hello() {
 		Employee employee = new Employee("Wilde", "Rossi", "Teste");
@@ -26,5 +27,14 @@ public class HelloWorldController {
 		List<Employee> list = new ArrayList<>();
 		employeeRepository.findAll().forEach(list::add);
 		return list;
+	}
+
+	@RequestMapping("/firstemployee")
+	public Employee getFirstEmployee() {
+		Employee employee = employeeRepository.findOne(1L);
+		if (employee == null) {
+			throw new EmployeeNotFoundException();
+		}
+		return employee;
 	}
 }
