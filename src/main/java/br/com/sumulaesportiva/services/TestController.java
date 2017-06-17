@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sumulaesportiva.entities.Test;
+import br.com.sumulaesportiva.exceptions.TestNotFoundException;
 import br.com.sumulaesportiva.repositories.TestRepository;
-import br.com.sumulaesportiva.response.Response;
-import br.com.sumulaesportiva.response.SuccessResponse;
-import br.com.sumulaesportiva.response.WarningResponse;
 
 @ResponseBody
 @RestController
@@ -19,29 +17,24 @@ public class TestController {
 	TestRepository testRepository;
 	
 	@RequestMapping("/test/add")
-	public Response<Test> add() {
-		Response<Test> response = new SuccessResponse<>();
+	public Test add() {
 		
 		Test test = new Test();
 		test.setName("nome teste");
-		testRepository.save(test);
+		test = testRepository.save(test);
 		
-		
-		return response;
+		return test;
 	}
 
 	@RequestMapping("/test/getById")
-	public Response<Test> getById(int id) {
-		Response<Test> response;
-		
+	public Test getById(int id) {
+				
 		Test test = testRepository.findOne(new Long(id));
+		if (test == null) {
+			throw new TestNotFoundException();
+		}
 		
-		if (test != null)
-			response = (new SuccessResponse<Test>()).setData(test);
-		else 
-			response = (new WarningResponse<Test>()).setMessage("Test com id == "+id+" não encontrado.");
-		
-		return response;
+		return test;
 	}
 
 }
