@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.sumulaesportiva.repositories.Test;
+import br.com.sumulaesportiva.entities.Test;
 import br.com.sumulaesportiva.repositories.TestRepository;
 import br.com.sumulaesportiva.response.Response;
 import br.com.sumulaesportiva.response.SuccessResponse;
