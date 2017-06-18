@@ -14,9 +14,9 @@ public class Sumula {
 	@GeneratedValue
 	private Long id;
 	
-	@OneToOne
+	@OneToOne(optional = false)
 	private Partida partida;
-
+	
 	public Long getId() {
 		return id;
 	}

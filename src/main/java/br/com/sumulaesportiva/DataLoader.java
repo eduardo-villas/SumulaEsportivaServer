@@ -1,5 +1,6 @@
 package br.com.sumulaesportiva;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ public class DataLoader implements ApplicationRunner {
 		
 		Partida partida = new Partida();
 		partida.setData(new Date());
-		partida.setHora(10);
+		partida.setHora(LocalTime.now());
+		partida.setLocal("Maracanã");
 		
 		sumula.setPartida(partida);
 		
