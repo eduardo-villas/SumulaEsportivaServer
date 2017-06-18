@@ -14,6 +14,7 @@ import br.com.sumulaesportiva.entities.Calendario;
 import br.com.sumulaesportiva.entities.Equipe;
 import br.com.sumulaesportiva.entities.Modalidade;
 import br.com.sumulaesportiva.entities.Partida;
+import br.com.sumulaesportiva.entities.Pessoa;
 import br.com.sumulaesportiva.entities.Sumula;
 import br.com.sumulaesportiva.entities.Tempo;
 import br.com.sumulaesportiva.entities.Test;
@@ -21,6 +22,7 @@ import br.com.sumulaesportiva.repositories.CalendarioRepository;
 import br.com.sumulaesportiva.repositories.EquipeRespository;
 import br.com.sumulaesportiva.repositories.ModalidadeRepository;
 import br.com.sumulaesportiva.repositories.PartidaRepository;
+import br.com.sumulaesportiva.repositories.PessoaRepository;
 import br.com.sumulaesportiva.repositories.SumulaRepository;
 import br.com.sumulaesportiva.repositories.TempoRepository;
 import br.com.sumulaesportiva.repositories.TestRepository;
@@ -42,6 +44,8 @@ public class DataLoader implements ApplicationRunner {
 	private TempoRepository tempoRepository;
 	@Autowired
 	private CalendarioRepository calendarioRepository;
+	@Autowired
+	private PessoaRepository pessoaRepository;
 	
 	@Override
 	public void run(ApplicationArguments arg) throws Exception {
@@ -50,9 +54,25 @@ public class DataLoader implements ApplicationRunner {
 		testRepository.save(test);
 		
 		addSumulaDefaultData();
-		addEquipeDefaultData();
+		Pessoa pessoa = addPessoaDefaultData();
+		addEquipeDefaultData(pessoa);
 		addCalendarioDefaultData(getFirstPartida());
 		
+	}
+
+	private Pessoa addPessoaDefaultData() {
+		Pessoa pessoa = new Pessoa();
+		
+		pessoa.setDataNascimento(new Date());
+		pessoa.setEmail("email@email.com");
+		pessoa.setEndereco("Rua de testes, bairro testes cidade...");
+		pessoa.setNome("Eduardo");
+		pessoa.setRG("87151980");
+		pessoa.setSexo('M');
+		pessoa.setTelefone("99958978");
+		
+		pessoa = pessoaRepository.save(pessoa);
+		return pessoa;
 	}
 
 	private void addCalendarioDefaultData(Partida anyPartida) {
@@ -80,7 +100,7 @@ public class DataLoader implements ApplicationRunner {
 		return partida;
 	}
 
-	private void addEquipeDefaultData() {
+	private void addEquipeDefaultData(Pessoa pessoa) {
 		Equipe equipe = new Equipe();
 		equipe.setNome("Brasil");
 		Modalidade modalidade = new Modalidade();
@@ -100,7 +120,11 @@ public class DataLoader implements ApplicationRunner {
 		
 		tempoRepository.save(tempo);
 		modalidadeRepository.save(modalidade);
+		
+		pessoa.setEquipe(equipe);
+		equipe.getIntegrantes().add(pessoa);
 		equipeRepository.save(equipe);		
+		pessoaRepository.save(pessoa);
 		
 	}
 
