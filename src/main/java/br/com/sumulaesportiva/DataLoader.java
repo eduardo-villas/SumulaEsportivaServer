@@ -55,8 +55,8 @@ public class DataLoader implements ApplicationRunner {
 		
 	}
 
-	private void addCalendarioDefaultData(Partida firstPartida) {
-		if (firstPartida == null) {
+	private void addCalendarioDefaultData(Partida anyPartida) {
+		if (anyPartida == null) {
 			throw new RuntimeException("Erro ao buscar a primeira partida.");
 		}
 		
@@ -64,7 +64,7 @@ public class DataLoader implements ApplicationRunner {
 		calendario.setDataInicio(new Date());
 		calendario.setDataFim(new Date());
 		ArrayList<Partida> partidas = new ArrayList<>();
-		partidas.add(firstPartida);
+		partidas.add(anyPartida);
 		calendario.setPartidas(partidas);
 		
 		calendarioRepository.save(calendario);

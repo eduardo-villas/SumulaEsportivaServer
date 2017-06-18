@@ -7,6 +7,6 @@ import br.com.sumulaesportiva.entities.Calendario;
 import br.com.sumulaesportiva.entities.Partida;
 
 @RepositoryRestResource(collectionResourceRel = "calendario", path = "calendario")
-public interface CalendarioRepository extends PagingAndSortingRepository<Calendario, Partida> {
+public interface CalendarioRepository extends PagingAndSortingRepository<Calendario, Long> {
 
 }
