@@ -1,25 +1,29 @@
 package br.com.sumulaesportiva;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.com.sumulaesportiva.entities.Calendario;
 import br.com.sumulaesportiva.entities.Equipe;
 import br.com.sumulaesportiva.entities.Modalidade;
 import br.com.sumulaesportiva.entities.Partida;
 import br.com.sumulaesportiva.entities.Sumula;
 import br.com.sumulaesportiva.entities.Tempo;
 import br.com.sumulaesportiva.entities.Test;
-import br.com.sumulaesportiva.repositories.SumulaRepository;
-import br.com.sumulaesportiva.repositories.TempoRepository;
-import br.com.sumulaesportiva.repositories.TestRepository;
+import br.com.sumulaesportiva.repositories.CalendarioRepository;
 import br.com.sumulaesportiva.repositories.EquipeRespository;
 import br.com.sumulaesportiva.repositories.ModalidadeRepository;
 import br.com.sumulaesportiva.repositories.PartidaRepository;
+import br.com.sumulaesportiva.repositories.SumulaRepository;
+import br.com.sumulaesportiva.repositories.TempoRepository;
+import br.com.sumulaesportiva.repositories.TestRepository;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -36,6 +40,8 @@ public class DataLoader implements ApplicationRunner {
 	private ModalidadeRepository modalidadeRepository; 
 	@Autowired
 	private TempoRepository tempoRepository;
+	@Autowired
+	private CalendarioRepository calendarioRepository;
 	
 	@Override
 	public void run(ApplicationArguments arg) throws Exception {
@@ -45,7 +51,33 @@ public class DataLoader implements ApplicationRunner {
 		
 		addSumulaDefaultData();
 		addEquipeDefaultData();
+		addCalendarioDefaultData(getFirstPartida());
 		
+	}
+
+	private void addCalendarioDefaultData(Partida firstPartida) {
+		if (firstPartida == null) {
+			throw new RuntimeException("Erro ao buscar a primeira partida.");
+		}
+		
+		Calendario calendario = new Calendario();
+		calendario.setDataInicio(new Date());
+		calendario.setDataFim(new Date());
+		ArrayList<Partida> partidas = new ArrayList<>();
+		partidas.add(firstPartida);
+		calendario.setPartidas(partidas);
+		
+		calendarioRepository.save(calendario);
+		
+	}
+
+	private Partida getFirstPartida() {
+		Iterable<Partida> partidas = partidaRepository.findAll();
+		Iterator<Partida> iteratorPartidas = partidas.iterator();
+		Partida partida = null;
+		if (iteratorPartidas.hasNext())
+			partida = iteratorPartidas.next();
+		return partida;
 	}
 
 	private void addEquipeDefaultData() {

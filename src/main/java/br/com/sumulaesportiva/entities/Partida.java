@@ -1,5 +1,6 @@
 package br.com.sumulaesportiva.entities;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -14,7 +15,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Partida")
-public class Partida {
+public class Partida implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
