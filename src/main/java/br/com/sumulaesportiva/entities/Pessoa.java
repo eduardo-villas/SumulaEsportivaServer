@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Pessoa")
@@ -14,25 +15,32 @@ public class Pessoa {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long Id;
 
+	@NotNull
 	private String nome;
+
 	private Date dataNascimento;
-	private char sexo;
+
+	private Character sexo;
+
 	private String RG;
+
 	private String telefone;
+
 	private String email;
+
 	private String endereco;
-	
+
 	@ManyToOne
 	private Equipe equipe;
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.Id = id;
 	}
 
 	public String getNome() {
@@ -51,11 +59,11 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public char getSexo() {
+	public Character getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(char sexo) {
+	public void setSexo(Character sexo) {
 		this.sexo = sexo;
 	}
 
@@ -98,5 +106,4 @@ public class Pessoa {
 	public void setEquipe(Equipe equipe) {
 		this.equipe = equipe;
 	}
-	
 }
