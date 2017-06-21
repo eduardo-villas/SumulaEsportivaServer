@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.entities;
 
 import javax.persistence.Entity;
@@ -13,10 +14,10 @@ public class Sumula {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@OneToOne(optional = false)
 	private Partida partida;
-	
+
 	public Long getId() {
 		return id;
 	}

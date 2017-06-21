@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.exceptions;
 
 import org.springframework.http.HttpStatus;

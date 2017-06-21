@@ -1,3 +1,4 @@
+// Wilde
 package br.com.sumulaesportiva.entities;
 
 import javax.persistence.Entity;

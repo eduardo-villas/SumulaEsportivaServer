@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva;
 
 import java.time.LocalTime;
@@ -36,33 +37,33 @@ public class DataLoader implements ApplicationRunner {
 	private SumulaRepository sumulaRepository;
 	@Autowired
 	private PartidaRepository partidaRepository;
-	@Autowired 
+	@Autowired
 	private EquipeRespository equipeRepository;
 	@Autowired
-	private ModalidadeRepository modalidadeRepository; 
+	private ModalidadeRepository modalidadeRepository;
 	@Autowired
 	private TempoRepository tempoRepository;
 	@Autowired
 	private CalendarioRepository calendarioRepository;
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
+
 	@Override
 	public void run(ApplicationArguments arg) throws Exception {
 		Test test = new Test();
 		test.setName("Eduardo");
 		testRepository.save(test);
-		
+
 		addSumulaDefaultData();
 		Pessoa pessoa = addPessoaDefaultData();
 		addEquipeDefaultData(pessoa);
 		addCalendarioDefaultData(getFirstPartida());
-		
+
 	}
 
 	private Pessoa addPessoaDefaultData() {
 		Pessoa pessoa = new Pessoa();
-		
+
 		pessoa.setDataNascimento(new Date());
 		pessoa.setEmail("email@email.com");
 		pessoa.setEndereco("Rua de testes, bairro testes cidade...");
@@ -70,7 +71,7 @@ public class DataLoader implements ApplicationRunner {
 		pessoa.setRG("87151980");
 		pessoa.setSexo('M');
 		pessoa.setTelefone("99958978");
-		
+
 		pessoa = pessoaRepository.save(pessoa);
 		return pessoa;
 	}
@@ -79,16 +80,16 @@ public class DataLoader implements ApplicationRunner {
 		if (anyPartida == null) {
 			throw new RuntimeException("Erro ao buscar a primeira partida.");
 		}
-		
+
 		Calendario calendario = new Calendario();
 		calendario.setDataInicio(new Date());
 		calendario.setDataFim(new Date());
 		ArrayList<Partida> partidas = new ArrayList<>();
 		partidas.add(anyPartida);
 		calendario.setPartidas(partidas);
-		
+
 		calendarioRepository.save(calendario);
-		
+
 	}
 
 	private Partida getFirstPartida() {
@@ -106,7 +107,7 @@ public class DataLoader implements ApplicationRunner {
 		Modalidade modalidade = new Modalidade();
 		equipe.setModalidade(modalidade);
 		modalidade.setDescricao("Futebol");
-		
+
 		Tempo tempo = new Tempo();
 		tempo.setDescricao("Tempo");
 		tempo.setDuracaoExtra(15);
@@ -115,29 +116,29 @@ public class DataLoader implements ApplicationRunner {
 		tempo.setQuantidadePeriodos(2);
 		tempo.setQuantidadeTemposExtras(2);
 		tempo.setQuantidadeTimeout(0);
-		
+
 		modalidade.setTempo(tempo);
-		
+
 		tempoRepository.save(tempo);
 		modalidadeRepository.save(modalidade);
-		
+
 		pessoa.setEquipe(equipe);
 		equipe.getIntegrantes().add(pessoa);
-		equipeRepository.save(equipe);		
+		equipeRepository.save(equipe);
 		pessoaRepository.save(pessoa);
-		
+
 	}
 
 	private void addSumulaDefaultData() {
 		Sumula sumula = new Sumula();
-		
+
 		Partida partida = new Partida();
 		partida.setData(new Date());
 		partida.setHora(LocalTime.now());
 		partida.setLocal("Maracanã");
-		
+
 		sumula.setPartida(partida);
-		
+
 		partidaRepository.save(partida);
 		sumulaRepository.save(sumula);
 	}

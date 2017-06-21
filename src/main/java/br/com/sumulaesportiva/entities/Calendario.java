@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.entities;
 
 import java.util.Date;
@@ -18,13 +19,13 @@ public class Calendario {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataFim;
-	
+
 	@OneToMany
 	private List<Partida> partidas;
 
@@ -59,5 +60,5 @@ public class Calendario {
 	public void setPartidas(List<Partida> partidas) {
 		this.partidas = partidas;
 	}
-	
+
 }

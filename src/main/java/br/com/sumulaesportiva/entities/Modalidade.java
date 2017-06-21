@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.entities;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ public class Modalidade {
 
 	@NotNull
 	private String descricao;
-	
+
 	@OneToOne(optional = false)
 	private Tempo tempo;
 
@@ -44,5 +45,5 @@ public class Modalidade {
 	public void setTempo(Tempo tempo) {
 		this.tempo = tempo;
 	}
-	
+
 }

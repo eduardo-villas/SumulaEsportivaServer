@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.repositories;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import br.com.sumulaesportiva.entities.Test;
 
 @RepositoryRestResource(collectionResourceRel = "test", path = "test")
 public interface TestRepository extends PagingAndSortingRepository<Test, Long> {
-	
+
 	List<Test> findByName(@Param("name") String name);
-	
+
 }

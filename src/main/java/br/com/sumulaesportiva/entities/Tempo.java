@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.entities;
 
 import javax.persistence.Entity;

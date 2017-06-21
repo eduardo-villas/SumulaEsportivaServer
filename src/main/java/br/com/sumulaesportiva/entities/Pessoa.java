@@ -1,3 +1,4 @@
+// Ricardo
 package br.com.sumulaesportiva.entities;
 
 import java.util.Date;

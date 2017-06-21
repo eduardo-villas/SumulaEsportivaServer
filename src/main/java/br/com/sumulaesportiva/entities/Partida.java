@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.entities;
 
 import java.io.Serializable;
@@ -17,32 +18,32 @@ import javax.validation.constraints.NotNull;
 @Table(name = "Partida")
 public class Partida implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date data;
-	
+
 	@NotNull
 	private int hora;
-	
+
 	@OneToOne
 	private Equipe mandante;
-	
+
 	@OneToOne
 	private Equipe visitante;
 
 	@OneToOne
 	private Equipe arbitral;
-	
+
 	@NotNull
 	private String local;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -65,7 +66,7 @@ public class Partida implements Serializable {
 	}
 
 	public void setHora(LocalTime hora) {
-		this.hora = hora.toSecondOfDay();  
+		this.hora = hora.toSecondOfDay();
 	}
 
 	public Equipe getMandante() {
@@ -100,5 +101,5 @@ public class Partida implements Serializable {
 		this.local = local;
 	}
 
-	
+
 }

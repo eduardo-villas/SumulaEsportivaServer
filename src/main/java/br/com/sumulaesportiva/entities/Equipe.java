@@ -1,3 +1,4 @@
+// Eduardo
 package br.com.sumulaesportiva.entities;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Equipe {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	private String nome;
 
 	@OneToOne
@@ -25,7 +26,7 @@ public class Equipe {
 
 	@OneToMany(mappedBy = "equipe")
 	private List<Pessoa> integrantes = new ArrayList<>();
-	
+
 	public Long getId() {
 		return id;
 	}
