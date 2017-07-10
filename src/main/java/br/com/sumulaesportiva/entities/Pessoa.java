@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,6 +22,7 @@ public class Pessoa {
 	@NotNull
 	private String nome;
 
+	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
 	private Character sexo;
