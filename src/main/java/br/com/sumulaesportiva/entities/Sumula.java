@@ -2,6 +2,7 @@ package br.com.sumulaesportiva.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -11,12 +12,12 @@ import javax.persistence.Table;
 public class Sumula {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@OneToOne(optional = false)
 	private Partida partida;
-	
+
 	public Long getId() {
 		return id;
 	}

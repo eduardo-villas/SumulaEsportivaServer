@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -16,33 +17,30 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "Partida")
 public class Partida implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date data;
-	
+
 	@NotNull
 	private int hora;
-	
+
 	@OneToOne
 	private Equipe mandante;
-	
+
 	@OneToOne
 	private Equipe visitante;
 
 	@OneToOne
 	private Equipe arbitral;
-	
+
 	@NotNull
 	private String local;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -65,7 +63,7 @@ public class Partida implements Serializable {
 	}
 
 	public void setHora(LocalTime hora) {
-		this.hora = hora.toSecondOfDay();  
+		this.hora = hora.toSecondOfDay();
 	}
 
 	public Equipe getMandante() {
@@ -100,5 +98,5 @@ public class Partida implements Serializable {
 		this.local = local;
 	}
 
-	
+
 }
