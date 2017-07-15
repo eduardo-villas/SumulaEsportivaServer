@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "Pessoa")
 public class Pessoa {
@@ -23,6 +25,7 @@ public class Pessoa {
 	@NotNull
 	private String nome;
 
+	@JsonFormat(timezone = "EST")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
