@@ -5,8 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "Modalidade")
@@ -14,28 +18,30 @@ public class Modalidade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long Id;
 
 	@NotNull
 	private String descricao;
 
-	@OneToOne(optional = false)
+	@PrimaryKeyJoinColumn
+	@OneToOne(orphanRemoval = true)
+	@Cascade(value = CascadeType.ALL)
 	private Tempo tempo;
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		Id = id;
 	}
 
 	public String getDescricao() {
 		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Tempo getTempo() {
@@ -45,5 +51,4 @@ public class Modalidade {
 	public void setTempo(Tempo tempo) {
 		this.tempo = tempo;
 	}
-
 }
