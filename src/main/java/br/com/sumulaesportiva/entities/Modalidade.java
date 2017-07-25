@@ -24,8 +24,8 @@ public class Modalidade {
 	private String descricao;
 
 	@PrimaryKeyJoinColumn
-	@OneToOne(orphanRemoval = true)
 	@Cascade(value = CascadeType.ALL)
+	@OneToOne(orphanRemoval = true)
 	private Tempo tempo;
 
 	public Long getId() {

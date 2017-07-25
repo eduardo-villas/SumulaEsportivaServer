@@ -1,10 +1,10 @@
 package br.com.sumulaesportiva.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -12,9 +12,9 @@ import javax.persistence.Table;
 public class Tempo {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 
-	private String descricao;
 	private int quantidadePeriodos;
 	private int duracaoPeriodos;
 	private int quantidadeTemposExtras;
@@ -22,9 +22,7 @@ public class Tempo {
 	private int quantidadeTimeout;
 	private int duracaoTimeout;
 
-	@MapsId
-	@OneToOne
-	@PrimaryKeyJoinColumn
+	@OneToOne(mappedBy = "tempo")
 	private Modalidade modalidade;
 
 	public Long getId() {
@@ -32,15 +30,7 @@ public class Tempo {
 	}
 
 	public void setId(Long id) {
-		Id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.Id = id;
 	}
 
 	public int getQuantidadePeriodos() {

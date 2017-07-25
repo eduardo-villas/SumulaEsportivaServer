@@ -105,7 +105,6 @@ public class DataLoader implements ApplicationRunner {
 		modalidade.setDescricao("Futebol");
 
 		Tempo tempo = new Tempo();
-		tempo.setDescricao("Tempo");
 		tempo.setDuracaoExtra(15);
 		tempo.setDuracaoPeriodos(45);
 		tempo.setDuracaoTimeout(0);
