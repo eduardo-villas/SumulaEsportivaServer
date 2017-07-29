@@ -2,6 +2,7 @@ package br.com.sumulaesportiva;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -60,7 +61,11 @@ public class DataLoader implements ApplicationRunner {
 	private Pessoa addPessoaDefaultData() {
 		Pessoa pessoa = new Pessoa();
 
-		pessoa.setDataNascimento(new Date());
+		Calendar dataNascimento = Calendar.getInstance();
+		dataNascimento.set(Calendar.DAY_OF_MONTH, 18);
+		dataNascimento.set(Calendar.MONTH, 9);
+		dataNascimento.set(Calendar.YEAR, 1994);
+		pessoa.setDataNascimento(dataNascimento.getTime());
 		pessoa.setEmail("email@email.com");
 		pessoa.setEndereco("Rua de testes, bairro testes cidade...");
 		pessoa.setNome("Eduardo");
