@@ -1,6 +1,5 @@
 package br.com.sumulaesportiva;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -134,7 +133,6 @@ public class DataLoader implements ApplicationRunner {
 
 		Partida partida = new Partida();
 		partida.setData(new Date());
-		partida.setHora(LocalTime.now());
 		partida.setLocal("Maracanã");
 
 		sumula.setPartida(partida);

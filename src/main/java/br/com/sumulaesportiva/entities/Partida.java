@@ -1,14 +1,14 @@
 package br.com.sumulaesportiva.entities;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,19 +23,20 @@ public class Partida implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Temporal(TemporalType.DATE)
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
-	@NotNull
-	private int hora;
-
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "mandante_fk")
 	private Equipe mandante;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "visitante_fk")
 	private Equipe visitante;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "equipeArbitral_fk")
 	private Equipe arbitral;
 
 	@NotNull
@@ -55,15 +56,6 @@ public class Partida implements Serializable {
 
 	public void setData(Date data) {
 		this.data = data;
-	}
-
-	public LocalTime getHora() {
-		LocalTime time = LocalTime.ofSecondOfDay(this.hora);
-		return time;
-	}
-
-	public void setHora(LocalTime hora) {
-		this.hora = hora.toSecondOfDay();
 	}
 
 	public Equipe getMandante() {
