@@ -1,6 +1,5 @@
 package br.com.sumulaesportiva;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -10,11 +9,15 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import com.google.common.collect.Lists;
+
 import br.com.sumulaesportiva.entities.Calendario;
 import br.com.sumulaesportiva.entities.Equipe;
 import br.com.sumulaesportiva.entities.Modalidade;
 import br.com.sumulaesportiva.entities.Partida;
 import br.com.sumulaesportiva.entities.Pessoa;
+import br.com.sumulaesportiva.entities.Ponto;
+import br.com.sumulaesportiva.entities.Punicao;
 import br.com.sumulaesportiva.entities.Sumula;
 import br.com.sumulaesportiva.entities.Tempo;
 import br.com.sumulaesportiva.entities.Test;
@@ -84,12 +87,9 @@ public class DataLoader implements ApplicationRunner {
 		Calendario calendario = new Calendario();
 		calendario.setDataInicio(new Date());
 		calendario.setDataFim(new Date());
-		ArrayList<Partida> partidas = new ArrayList<>();
-		partidas.add(anyPartida);
-		calendario.setPartidas(partidas);
+		calendario.setPartidas(Lists.newArrayList(anyPartida));
 
 		calendarioRepository.save(calendario);
-
 	}
 
 	private Partida getFirstPartida() {
@@ -118,6 +118,22 @@ public class DataLoader implements ApplicationRunner {
 
 		modalidade.setTempo(tempo);
 		tempo.setModalidade(modalidade);
+
+		Ponto ponto = new Ponto();
+		ponto.setDescricao("Gol");
+		ponto.setValor(1);
+
+		modalidade.setTiposPonto(Lists.newArrayList(ponto));
+
+		Punicao cartaoAmarelo = new Punicao();
+		cartaoAmarelo.setTipo("Cartão amarelo");
+		cartaoAmarelo.setDescricao("Punição aplicada a um jogador que comete uma falta razoavelmente grave. Duas punições dessa obrigam o árbitro a aplicar a punição do cartão vermelho.");
+
+		Punicao cartaoVermelho = new Punicao();
+		cartaoVermelho.setTipo("Cartão vermelho");
+		cartaoVermelho.setDescricao("Punição aplicada a um jogador que comete uma falta grave. Acarreta na expulsão imediata do jogador.");
+
+		modalidade.setTiposPunicao(Lists.newArrayList(cartaoAmarelo, cartaoVermelho));
 
 		modalidadeRepository.save(modalidade);
 
