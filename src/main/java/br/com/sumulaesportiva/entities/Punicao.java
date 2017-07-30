@@ -16,8 +16,11 @@ public class Punicao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	private String descricao;
+
+	@NotNull
 	private String tipo;
+
+	private String descricao;
 
 	@NotNull
 	@ManyToOne

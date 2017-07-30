@@ -32,11 +32,11 @@ public class Modalidade {
 	private Tempo tempo;
 
 	@Cascade(CascadeType.ALL)
-	@OneToMany(mappedBy = "modalidade")
+	@OneToMany(mappedBy = "modalidade", orphanRemoval = true)
 	private List<Ponto> tiposPonto;
 
 	@Cascade(CascadeType.ALL)
-	@OneToMany(mappedBy = "modalidade")
+	@OneToMany(mappedBy = "modalidade", orphanRemoval = true)
 	private List<Punicao> tiposPunicao;
 
 	public Long getId() {
