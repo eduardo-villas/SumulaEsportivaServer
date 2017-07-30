@@ -59,17 +59,21 @@ public class DataLoader implements ApplicationRunner {
 
 		addSumulaDefaultData();
 		Pessoa pessoa = addPessoaDefaultData();
-		addEquipeDefaultData(pessoa);
+		Modalidade modalidade = new Modalidade();
+		Equipe equipe = addEquipeDefaultData(pessoa, modalidade);
 		addCalendarioDefaultData(getFirstPartida());
-		addLiga();
+		addLiga(equipe, modalidade);
 
 	}
 
-	private void addLiga() {
+	private void addLiga(Equipe equipe, Modalidade modalidade) {
 		
 		Liga liga = new Liga();
 		liga.setNome("Brasileiro");
-		liga.setRG("123456");
+		liga.setData(new Date());
+		liga.setHorario(1430);
+		liga.setModalidade(modalidade);
+		liga.setCabecaDeChave(equipe);
 		ligaRepository.save(liga);
 		
 	}
@@ -115,10 +119,10 @@ public class DataLoader implements ApplicationRunner {
 		return partida;
 	}
 
-	private void addEquipeDefaultData(Pessoa pessoa) {
+	private Equipe addEquipeDefaultData(Pessoa pessoa, Modalidade modalidade) {
 		Equipe equipe = new Equipe();
 		equipe.setNome("Brasil");
-		Modalidade modalidade = new Modalidade();
+		
 		equipe.setModalidade(modalidade);
 		modalidade.setDescricao("Futebol");
 
@@ -155,6 +159,8 @@ public class DataLoader implements ApplicationRunner {
 		equipe.getIntegrantes().add(pessoa);
 		equipeRepository.save(equipe);
 		pessoaRepository.save(pessoa);
+		
+		return equipe;
 
 	}
 
