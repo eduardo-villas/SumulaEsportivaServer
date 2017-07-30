@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.sumulaesportiva.entities.Calendario;
 import br.com.sumulaesportiva.entities.Equipe;
+import br.com.sumulaesportiva.entities.Liga;
 import br.com.sumulaesportiva.entities.Modalidade;
 import br.com.sumulaesportiva.entities.Partida;
 import br.com.sumulaesportiva.entities.Pessoa;
@@ -20,6 +21,7 @@ import br.com.sumulaesportiva.entities.Tempo;
 import br.com.sumulaesportiva.entities.Test;
 import br.com.sumulaesportiva.repositories.CalendarioRepository;
 import br.com.sumulaesportiva.repositories.EquipeRespository;
+import br.com.sumulaesportiva.repositories.LigaRepository;
 import br.com.sumulaesportiva.repositories.ModalidadeRepository;
 import br.com.sumulaesportiva.repositories.PartidaRepository;
 import br.com.sumulaesportiva.repositories.PessoaRepository;
@@ -43,6 +45,8 @@ public class DataLoader implements ApplicationRunner {
 	private CalendarioRepository calendarioRepository;
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	@Autowired
+	private LigaRepository ligaRepository;
 
 	@Override
 	public void run(ApplicationArguments arg) throws Exception {
@@ -54,7 +58,17 @@ public class DataLoader implements ApplicationRunner {
 		Pessoa pessoa = addPessoaDefaultData();
 		addEquipeDefaultData(pessoa);
 		addCalendarioDefaultData(getFirstPartida());
+		addLiga();
 
+	}
+
+	private void addLiga() {
+		
+		Liga liga = new Liga();
+		liga.setNome("Brasileiro");
+		liga.setRG("123456");
+		ligaRepository.save(liga);
+		
 	}
 
 	private Pessoa addPessoaDefaultData() {
