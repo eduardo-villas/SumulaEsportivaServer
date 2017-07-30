@@ -1,9 +1,12 @@
 package br.com.sumulaesportiva.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -28,6 +31,14 @@ public class Modalidade {
 	@OneToOne(orphanRemoval = true)
 	private Tempo tempo;
 
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy = "modalidade")
+	private List<Ponto> tiposPonto;
+
+	@Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy = "modalidade")
+	private List<Punicao> tiposPunicao;
+
 	public Long getId() {
 		return Id;
 	}
@@ -50,5 +61,23 @@ public class Modalidade {
 
 	public void setTempo(Tempo tempo) {
 		this.tempo = tempo;
+	}
+
+	public List<Ponto> getTiposPonto() {
+		return tiposPonto;
+	}
+
+	public void setTiposPonto(List<Ponto> tiposPonto) {
+		tiposPonto.forEach(tipoPonto -> tipoPonto.setModalidade(this));
+		this.tiposPonto = tiposPonto;
+	}
+
+	public List<Punicao> getTiposPunicao() {
+		return tiposPunicao;
+	}
+
+	public void setTiposPunicao(List<Punicao> tiposPunicao) {
+		tiposPunicao.forEach(tipoPunicao -> tipoPunicao.setModalidade(this));
+		this.tiposPunicao = tiposPunicao;
 	}
 }
