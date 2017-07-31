@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "Liga")
 public class Liga {
@@ -29,10 +31,9 @@ public class Liga {
 	@OneToOne
 	private Equipe cabecaDeChave;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "EST")
 	private Date data;
-
-	private Integer horario;
 
 	public Long getId() {
 		return Id;
@@ -73,13 +74,4 @@ public class Liga {
 	public void setData(Date data) {
 		this.data = data;
 	}
-
-	public Integer getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Integer horario) {
-		this.horario = horario;
-	}
-
 }
